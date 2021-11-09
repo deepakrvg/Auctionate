@@ -1,0 +1,24 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block body %}
+    <h1>Bids you won</h1>
+
+    {% if message %}
+    {{ message }}
+    {% endif %}
+
+    {% for user_win_bid in user_win_bids %}
+        <div class="card">
+            <h5 class="card-header">{{ user_win_bid.name }}</h5>
+            <div class="card-body">
+            <h5 class="card-title"><img src="{{ user_win_bid.image }}" alt="No image"></h5>
+            <p class="card-text">${{ user_win_bid.price }}.00</p>
+        </div>
+    {% empty %}
+    <div>History is empty.</div>
+    {% endfor %}
+{% endblock %}

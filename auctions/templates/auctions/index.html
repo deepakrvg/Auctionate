@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    {% for item in items %}
+    
+        <section class="item">
+            <div class="img"><img src="{{item.image}}" alt="No image"></div>  
+            <div class="name"><span class="light"><b>Name: </b></span>{{ item.name }}</div>
+            <div class="price"><span class="light"><b>Price: </b></span>${{ item.price }}.00</div>
+            <div class="category"><span class="light"><b>Category: </b></span>{{ item.category }}</div>
+            <div class="desc"><span class="light"><b>Description: </b></span>{{ item.description }}</div>
+            <div class="time"><span class="light">{{ item.time }}</span></div>
+            <div class="open"><a href="{% url 'list' item.id %}"><button class="btn btn-primary">Open</button></a></div>
+            <div class="watchlist">
+                <form action="{% url 'index' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="name" value="{{ item.name }}">
+                    <input type="hidden" name="price" value="{{ item.price }}">
+                    <input type="hidden" name="image" value="{{ item.image }}">
+                    <input type="hidden" name="item_number" value="{{ item.id }}">
+                    <input type="submit" class="btn btn-primary" value="Add to WatchList">
+                </form>
+            </div>
+        </section>
+    {% endfor %}
+{% endblock %}

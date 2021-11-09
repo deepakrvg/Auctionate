@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Comments
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        {{ message }}
+    {% endif %}
+    
+    <div class="comment">
+        <form action="{% url 'comment' item.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="comment" placeholder="Comment">
+            <input type="submit" class="btn btn-primary" value="Comment">
+        </form>
+    </div>
+    <div class="comments">
+            {% for comment in comments %}
+                <div class="card">
+                    <div class="card-header">
+                        {{ comment.username }}
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <p>{{ comment.comment }}</p>
+                            <footer class="blockquote-footer">{{ comment.time }}</footer>
+                        </blockquote>
+                    </div>
+                </div>
+            {% empty %}
+                No Comments.
+            {% endfor %}
+    </div>
+{% endblock %}

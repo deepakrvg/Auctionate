@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    Watchlist
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        {{ message }}
+    {% endif %}
+
+    {% for watch in watchs %}
+        <a href="{% url 'list' watch.item_number %}">
+            <div class="card">
+                <h5 class="card-header">{{ watch.name }}</h5>
+                <div class="card-body">
+                <h5 class="card-title"><img src="{{ watch.image }}" alt="No image"></h5>
+                <p class="card-text">${{ watch.price }}.00</p>
+                <div>
+                    <form action="{% url 'watchlist' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ watch.id }}">
+                        <input type="submit" class="btn btn-primary" value="Delete">
+                    </form>
+                </div>
+                </div>
+            </div>
+        </a>
+    {% empty %}
+        <div>Watchlist is empty.</div>
+    {% endfor %}
+{% endblock %}

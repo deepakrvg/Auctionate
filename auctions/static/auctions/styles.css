@@ -1,0 +1,69 @@
+body {
+  padding: 10px;
+}
+
+.item {
+  display: grid;
+  grid-template:
+    "img name name"
+    "img price open"
+    "img category category"
+    "img desc watchlist"
+    "img time time";
+  margin: 30px;
+  padding: 10px;
+  border: solid 2px rgba(150, 150, 150, 0.7);
+  border-radius: 20px;
+}
+
+.img {
+  width: 600px;
+  grid-area: img;
+}
+
+img {
+  width: 600px;
+}
+
+.name {
+  font-weight: bold;
+  grid-area: name;
+}
+
+.price {
+  font-weight: bold;
+  grid-area: price;
+}
+
+.category {
+  grid-area: category;
+}
+
+.desc {
+  grid-area: desc;
+}
+
+.time {
+  grid-area: time;
+}
+
+.light {
+  color: rgba(124, 120, 120, 0.7);
+}
+
+.open {
+  grid-area: open;
+}
+
+.watchlist {
+  grid-area: watchlist;
+}
+
+.list_name {
+  font-weight: bold;
+}
+
+.button {
+  margin: 10px;
+  display: block;
+}

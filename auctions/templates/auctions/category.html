@@ -1,0 +1,24 @@
+{% extends 'auctions/layout.html' %}
+
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ name }}</h1>
+
+    {% if message %}
+        {{ message }}
+    {% endif %}
+
+    {% for category_list in category_lists %}
+    <a href="{% url 'list' category_list.id %}">
+        <div class="card">
+            <h5 class="card-header">{{ category_list.name }}</h5>
+            <div class="card-body">
+            <h5 class="card-title"><img src="{{ category_list.image }}" alt="No image"></h5>
+            <p class="card-text">${{ category_list.price }}.00</p>
+        </div>
+    </a>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ item.name }}
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        {{ message }}
+    {% endif %}
+
+    <section class="list_item"> 
+        <div class="list_name">Listing: {{ item.name }}</div>
+        <div class="list_img"><img src="{{item.image}}" alt="No Image"></div>
+        <div class="list_desc">{{ item.description }}</div>
+        <div class="list_price"><b>${{ max_bid }}.00</b></div>
+        <div class="bids_number">{{ bids_number }} bid(s) so far. Your bid is the current bid.</div>
+        <div class="bid_form">
+            {% if user_id == item.user_id %}
+                <form action="{% url 'endbid' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                    <input type="submit" class="btn btn-primary" value="End Bid">
+                </form>
+            {% else %}
+            <form action="{% url 'list' item.id %}" method="post">
+                {% csrf_token %}
+                <input type="number" name="bid_price" placeholder="Bid">
+                <input type="submit" class="btn btn-primary button" value="Place Bid">
+            </form>
+            {% endif %}
+        </div>
+
+        <div class="bid_details">
+            <b>Details</b>
+            <ul>
+                <li>Listed by: {{ username }}</li>
+                {% if item.category %}
+                    <li>Category: {{ item.category }}</li>
+                {% else %}
+                    <li>Category: No Category Listed.</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div><button class="btn btn-primary"><a href="{% url 'comment' item.id %}" style="color: white;">Add Comment</a></button></div>
+
+    </section>
+{% endblock %}
